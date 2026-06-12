@@ -31,7 +31,7 @@ def _parse_pdf(file_path: Path, doc_id: str) -> list[dict]:
     # Render all pages as images first
     page_images = convert_from_path(
         str(file_path),
-        dpi=200,
+        dpi=100,
         poppler_path=_get_poppler_path()
     )
 
