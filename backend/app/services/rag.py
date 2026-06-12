@@ -1,6 +1,6 @@
 from langchain_groq import ChatGroq
 from langchain_chroma import Chroma
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 from app.core.config import settings
@@ -12,7 +12,7 @@ _vectorstore = None
 def get_embeddings():
     global _embeddings
     if _embeddings is None:
-        _embeddings = HuggingFaceEmbeddings(model_name=settings.embedding_model)
+        _embeddings = HuggingFaceEndpointEmbeddings(model=settings.embedding_model, huggingfacehub_api_token=settings.hf_api_key)
     return _embeddings
 
 

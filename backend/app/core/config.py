@@ -13,7 +13,8 @@ class Settings(BaseSettings):
     max_file_size_mb: int = 50
     allowed_extensions: str = "pdf,png,jpg,jpeg,tiff"
 
-    embedding_model: str = "all-MiniLM-L6-v2"
+    embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+    hf_api_key: str = ""
     llm_model: str = "llama-3.3-70b-versatile"
 
     class Config:
