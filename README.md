@@ -1,4 +1,9 @@
 ﻿# Document Intelligence — Agentic RAG System
+## Live Demo
+- Frontend: https://document-intelligence-jet.vercel.app
+- Backend API: https://document-intelligence-p35u.onrender.com/docs
+
+Note: upload the documents in sample_docs/ via Bulk Upload to populate the knowledge base (backend storage is ephemeral on free tier).
 
 A full-stack web app that ingests messy real-world documents (scanned PDFs, handwritten pages, image-heavy reports, tables), classifies them with an LLM, and powers a chatbot that answers questions with grounded citations showing the exact source page.
 
