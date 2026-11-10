@@ -1,6 +1,6 @@
 from langchain_groq import ChatGroq
 from langchain_chroma import Chroma
-from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
+from app.services.embeddings import LocalOnnxEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 from app.core.config import settings
@@ -12,12 +12,7 @@ _vectorstore = None
 def get_embeddings():
     global _embeddings
     if _embeddings is None:
-        # Utilise l'API Hugging Face gratuite (pas de modele local lourd)
-        _embeddings = HuggingFaceInferenceAPIEmbeddings(
-            model_name="sentence-transformers/all-MiniLM-L6-v2",
-            api_key=settings.hf_api_key or "",
-            api_url="https://router.huggingface.co/hf-inference/models/sentence-transformers/all-MiniLM-L6-v2/pipeline/feature-extraction",
-        )
+        _embeddings = LocalOnnxEmbeddings()
     return _embeddings
 
 
