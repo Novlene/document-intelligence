@@ -1,0 +1,45 @@
+[parse] START E:\document-intelligence\sample_docs\AI_ML_Interview_Prep.pdf  (this line must appear only ONCE)
+[parse] DONE 4 pages
+[classify] attempt started
+16:39:52.637557 ERROR    [8dc8f55a-67cc-443b-8d67-0fd736898dc7][2ijcl3nrnrw2h2dbkkbc26wxl]  taskrunner.py:129 - Task failed with error: 429 Too Many Requests   
+                         (simulated Groq rate limit, failure 1/2)                                                                                               
+                         Traceback (most recent call last):                                                                                                     
+                           File "E:\document-intelligence\backend\venv\Lib\site-packages\flyte\_internal\runtime\taskrunner.py", line 121, in run_task          
+                             outputs = await task.execute(**inputs)                                                                                             
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                                                             
+                           File "E:\document-intelligence\backend\venv\Lib\site-packages\flyte\_task.py", line 728, in execute                                  
+                             v = await self.func(*args, **kwargs)                                                                                               
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                                                               
+                           File "E:\document-intelligence\backend\flyte_pipeline.py", line 61, in classify                                                      
+                             _simulate_rate_limit()                                                                                                             
+                           File "E:\document-intelligence\backend\flyte_pipeline.py", line 42, in _simulate_rate_limit                                          
+                             raise RuntimeError(f"429 Too Many Requests (simulated Groq rate limit, failure {done + 1}/{n})")                                   
+                         RuntimeError: 429 Too Many Requests (simulated Groq rate limit, failure 1/2)                                                           
+16:39:52.647919 WARNING  [8dc8f55a-67cc-443b-8d67-0fd736898dc7][29y821wz9usceqomc6q55fmzk]  _local_controller.py:284 - Task 'document_intelligence.classify'    
+                         action '2ijcl3nrnrw2h2dbkkbc26wxl' failed on attempt 1/4; retrying in 0.50s...                                                         
+[classify] attempt started
+16:39:53.155015 ERROR    [8dc8f55a-67cc-443b-8d67-0fd736898dc7][2ijcl3nrnrw2h2dbkkbc26wxl]  taskrunner.py:129 - Task failed with error: 429 Too Many Requests   
+                         (simulated Groq rate limit, failure 2/2)                                                                                               
+                         Traceback (most recent call last):                                                                                                     
+                           File "E:\document-intelligence\backend\venv\Lib\site-packages\flyte\_internal\runtime\taskrunner.py", line 121, in run_task          
+                             outputs = await task.execute(**inputs)                                                                                             
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                                                             
+                           File "E:\document-intelligence\backend\venv\Lib\site-packages\flyte\_task.py", line 728, in execute                                  
+                             v = await self.func(*args, **kwargs)                                                                                               
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                                                               
+                           File "E:\document-intelligence\backend\flyte_pipeline.py", line 61, in classify                                                      
+                             _simulate_rate_limit()                                                                                                             
+                           File "E:\document-intelligence\backend\flyte_pipeline.py", line 42, in _simulate_rate_limit                                          
+                             raise RuntimeError(f"429 Too Many Requests (simulated Groq rate limit, failure {done + 1}/{n})")                                   
+                         RuntimeError: 429 Too Many Requests (simulated Groq rate limit, failure 2/2)                                                           
+16:39:53.158620 WARNING  [8dc8f55a-67cc-443b-8d67-0fd736898dc7][29y821wz9usceqomc6q55fmzk]  _local_controller.py:284 - Task 'document_intelligence.classify'    
+                         action '2ijcl3nrnrw2h2dbkkbc26wxl' failed on attempt 2/4; retrying in 1.00s...                                                         
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[classify] attempt started
+[classify] DONE doc_type=report
+[index] START
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 6182.48it/s]
+[index] DONE 13 chunks
+
+=== RESULT ===
+{'doc_id': '79c5ca7b-f52e-41e0-8785-e62f255dbc13', 'doc_name': 'AI_ML_Interview_Prep.pdf', 'page_count': 4, 'classification': {'doc_type': 'report', 'topic': 'AI/ML interview preparation guide covering core concepts, deep learning, NLP, and practical tools', 'language': 'en', 'sensitivity': 'public', 'has_tables': True, 'has_handwriting': False, 'has_images': True, 'is_scanned': False, 'summary': 'The document is a study guide for an AI/ML internship technical assessment, presenting common interview questions and concise answers on supervised, unsupervised, and reinforcement learning, model overfitting, evaluation metrics, transformer architecture, and various deep‑learning models. It also covers modern AI topics such as Retrieval‑Augmented Generation, word embeddings, LangChain vs. LangGraph, evaluation frameworks, gradient descent variants, and transfer learning, with practical tips and example tools.', 'key_entities': ['House Of Couton', 'SME AI/ML Internship', 'AlphaGo', 'GPT-4', 'LLaMA', 'BERT', 'Word2Vec', 'ChromaDB', 'FAISS', 'Pinecone', 'LangChain', 'LangGraph', 'Second Brain', 'LangSmith', 'RAGAS', 'all-MiniLM-L6-v2'], 'tags': ['AI', 'machine learning', 'interview preparation', 'supervised learning', 'unsupervised learning', 'reinforcement learning', 'overfitting', 'precision recall', 'bias variance', 'transformer', 'attention', 'CNN', 'RNN', 'LSTM', 'RAG', 'embeddings', 'Word2Vec', 'BERT', 'LangChain', 'LangGraph', 'evaluation metrics', 'gradient descent', 'transfer learning']}, 'chunks_indexed': 13}
