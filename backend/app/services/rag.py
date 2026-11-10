@@ -16,6 +16,7 @@ def get_embeddings():
         _embeddings = HuggingFaceInferenceAPIEmbeddings(
             model_name="sentence-transformers/all-MiniLM-L6-v2",
             api_key=settings.hf_api_key or "",
+            api_url="https://router.huggingface.co/hf-inference/models/sentence-transformers/all-MiniLM-L6-v2/pipeline/feature-extraction",
         )
     return _embeddings
 
