@@ -1,5 +1,8 @@
 FROM python:3.12-slim
 
+# Installer poppler-utils (requis par pdf2image)
+RUN apt-get update && apt-get install -y poppler-utils && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 COPY requirements.txt .
