@@ -20,9 +20,21 @@ If `classify` fails, only `classify` is retried. The OCR result is kept and OCR 
 
 ## Setup
 
+Requirements: Python 3.11, **64-bit** (PyTorch and ONNX Runtime have no 32-bit Windows build).
+Tesseract OCR and Poppler must also be installed on your machine (used by `parse`).
+
+Create and activate a clean virtual environment, then run these three commands **in this order**, from `backend/`:
+
 ```
 pip install flyte sentence-transformers
+pip install -r requirements.txt
+pip install "huggingface-hub>=1.31,<2"
 ```
+
+- The first command installs Flyte 2 and local embeddings.
+- The second installs the packages used by the FastAPI code that the tasks reuse (pdfplumber, groq, chromadb, langchain, pydantic-settings, ...).
+- The third is needed because `requirements.txt` installs an older `huggingface-hub`, which breaks `sentence-transformers`. Without it, the `index` task fails with `ImportError: cannot import name 'ResolvedRevision'`.
+- On Windows, if `pip` fails with `OSError: [Errno 2] No such file or directory` and a very long path, point pip to a short temp folder first: `mkdir C:\t`, then `set TEMP=C:\t` and `set TMP=C:\t`.
 
 Put these in `backend/.env`:
 
