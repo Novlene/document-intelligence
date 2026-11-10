@@ -1,18 +1,31 @@
 from langchain_groq import ChatGroq
 from langchain_chroma import Chroma
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
+from fastembed import TextEmbedding
+from typing import List
 from app.core.config import settings
 
 _embeddings = None
 _vectorstore = None
 
+class FastEmbedWrapper:
+    """Wrapper pour rendre fastembed compatible avec LangChain/Chroma."""
+    def __init__(self, model_name: str = "BAAI/bge-small-en-v1.5"):
+        self.model = TextEmbedding(model_name=model_name)
+
+    def embed_documents(self, texts: List[str]) -> List[List[float]]:
+        return [embedding.tolist() for embedding in self.model.embed(texts)]
+
+    def embed_query(self, text: str) -> List[float]:
+        return self.model.embed([text])[0].tolist()
+
 
 def get_embeddings():
     global _embeddings
     if _embeddings is None:
-        _embeddings = HuggingFaceEmbeddings(model_name=settings.embedding_model)
+        # Utilise le modèle par défaut de fastembed, très léger et adapté aux 512 Mo de RAM
+        _embeddings = FastEmbedWrapper(model_name="BAAI/bge-small-en-v1.5")
     return _embeddings
 
 
