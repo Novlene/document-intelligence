@@ -1,7 +1,7 @@
-﻿# Document Intelligence — Agentic RAG System
+# Document Intelligence — Agentic RAG System
 ## Live Demo
 - Frontend: https://document-intelligence-jet.vercel.app
-- Backend API: https://document-intelligence-p35u.onrender.com/docs
+- Backend API: https://document-intelligence-1-8t4z.onrender.com/docs
 
 Note: upload the documents in sample_docs/ via Bulk Upload to populate the knowledge base (backend storage is ephemeral on free tier).
 
@@ -16,9 +16,9 @@ backend (FastAPI + Python)
 
 ├── Parser: pdfplumber + pdf2image + pytesseract (OCR)
 
-├── Classifier: Groq LLaMA-3.3-70b → structured JSON
+├── Classifier: Groq (openai/gpt-oss-120b) → structured JSON
 
-├── RAG: ChromaDB + HuggingFace embeddings + LangChain
+├── RAG: ChromaDB + local ONNX embeddings (all-MiniLM-L6-v2) + LangChain
 
 └── Storage: local filesystem + ChromaDB
 ## Features
@@ -47,10 +47,12 @@ venv\Scripts\activate  # Windows
 pip install -r requirements.txt
 ```
 
-Create `.env`:'@
-GROQ_API_KEY=your_groq_api_key
-API_KEY=your_api_key
-SECRET_KEY=your_secret_key
+Create `.env`:
+
+    GROQ_API_KEY=your_groq_api_key
+    LLM_MODEL=openai/gpt-oss-120b
+    API_KEY=your_api_key
+    SECRET_KEY=your_secret_key
 
 Then run:
 
