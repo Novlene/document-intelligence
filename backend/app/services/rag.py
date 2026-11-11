@@ -1,18 +1,32 @@
 from langchain_groq import ChatGroq
 from langchain_chroma import Chroma
-from app.services.embeddings import LocalOnnxEmbeddings
+from langchain_core.embeddings import Embeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
+from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
 from app.core.config import settings
 
 _embeddings = None
 _vectorstore = None
 
 
+class LightEmbeddings(Embeddings):
+    """Lightweight embeddings (all-MiniLM-L6-v2 via ONNX), no torch needed."""
+
+    def __init__(self):
+        self._fn = DefaultEmbeddingFunction()
+
+    def embed_documents(self, texts):
+        return [[float(x) for x in v] for v in self._fn(list(texts))]
+
+    def embed_query(self, text):
+        return self.embed_documents([text])[0]
+
+
 def get_embeddings():
     global _embeddings
     if _embeddings is None:
-        _embeddings = LocalOnnxEmbeddings()
+        _embeddings = LightEmbeddings()
     return _embeddings
 
 
